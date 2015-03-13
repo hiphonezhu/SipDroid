@@ -99,6 +99,7 @@ public class ExtendedCall extends Call implements ExtendedInviteDialogListener {
 	}
 
 	/** Waits for an incoming call */
+	// 监听来电
 	public void listen() {
 		if (username != null)
 			dialog = new ExtendedInviteDialog(sip_provider, username, realm,

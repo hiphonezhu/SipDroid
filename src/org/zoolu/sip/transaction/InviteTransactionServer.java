@@ -138,8 +138,10 @@ public class InviteTransactionServer extends TransactionServer {
 		printLog("start", LogLevel.LOW);
 		if (statusIs(STATE_IDLE)) {
 			changeStatus(STATE_WAITING);
+			// 监听来电事件
 			sip_provider.addSipProviderListener(new TransactionIdentifier(
 					SipMethods.INVITE), this);
+			// 监听其他
 			sip_provider.addSipProviderListener(new TransactionIdentifier(
 			        SipMethods.OPTIONS), this);
 
@@ -187,7 +189,7 @@ public class InviteTransactionServer extends TransactionServer {
 		if (msg.isRequest()) {
 			String req_method = msg.getRequestLine().getMethod();
 
-			// invite received
+			// invite received 来电
 			if (req_method.equals(SipMethods.INVITE)) {
 				if (statusIs(STATE_WAITING)) {
 					request = new Message(msg);
@@ -207,7 +209,7 @@ public class InviteTransactionServer extends TransactionServer {
 						// automatically to
 						// STATE_PROCEEDING
 					}
-					if (transaction_listener != null)
+					if (transaction_listener != null) // 回调来电信息到ExtendedInviteDialog的父类InviteDialog
 						transaction_listener.onTransRequest(this, msg);
 					return;
 				}

@@ -336,6 +336,7 @@ public class UserAgent extends CallListenerAdapter {
 	}
 	
 	/** Waits for an incoming call (acting as UAS). */
+	// 对用户代理进行监听
 	public boolean listen() {
 		
 		if (Receiver.call_state != UA_STATE_IDLE)
@@ -348,6 +349,7 @@ public class UserAgent extends CallListenerAdapter {
 		
 		hangup();
 		
+		// 监听来电等, 回调到onCallIncoming方法
 		call = new ExtendedCall(sip_provider, user_profile.from_url,
 				user_profile.contact_url, user_profile.username,
 				user_profile.realm, user_profile.passwd, this);
@@ -534,6 +536,7 @@ public class UserAgent extends CallListenerAdapter {
 	/**
 	 * Callback function called when arriving a new INVITE method (incoming
 	 * call)
+	 * 处理来电请求
 	 */
 	public void onCallIncoming(Call call, NameAddress callee,
 			NameAddress caller, String sdp, Message invite) {
@@ -550,7 +553,7 @@ public class UserAgent extends CallListenerAdapter {
 			i++;
 		}
 		if (Receiver.call_state != UA_STATE_IDLE || !Receiver.isFast(i)) {
-			call.busy();
+			call.busy(); // 当前用户正忙, 挂断并给出响应
 			listen();
 			return;
 		}
@@ -573,7 +576,8 @@ public class UserAgent extends CallListenerAdapter {
 				return;
 			}
 		}
-		call.ring(local_session);		
+		call.ring(local_session);	
+		// 发送和接收语音(还没找到用户接听的动作...)
 		launchMediaApplication();
 	}
 

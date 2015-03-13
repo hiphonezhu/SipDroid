@@ -223,6 +223,7 @@ public class RegisterAgent implements TransactionClientListener, SubscriberDialo
 			CurrentState = DEREGISTERING;
 		}
 		
+		// 注册到SIP服务器
 		//Create message re (modified by mandrajg)
 		Message req = MessageFactory.createRegisterRequest(sip_provider,
 				target, target, new NameAddress(user_profile.contact_url), qvalue, icsi);
@@ -231,7 +232,7 @@ public class RegisterAgent implements TransactionClientListener, SubscriberDialo
 		
 		//create and fill the authentication params this is done when
 		//the UA has been challenged by the registrar or intermediate UA
-		if (next_nonce != null) 
+		if (next_nonce != null) // 身份认证
 		{
 			AuthorizationHeader ah = new AuthorizationHeader("Digest");
 			
@@ -256,6 +257,7 @@ public class RegisterAgent implements TransactionClientListener, SubscriberDialo
 			printLog("Unregistering contact " + contact, LogLevel.HIGH);
 		}
 		
+		// TCP或UDP方式发送到SIP服务器
 		t = new TransactionClient(sip_provider, req, this, 30000);
 		t.request();
 		

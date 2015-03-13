@@ -29,6 +29,7 @@ import org.zoolu.sip.message.Message;
  * (e.g. toward the serving proxy/gw or a remote UA). It periodically sends
  * keep-alive tokens in order to refresh TCP connection timeouts and/or NAT
  * TCP/UDP session timeouts.
+ * 保持在线包
  */
 public class KeepAliveSip {
 	/** SipProvider */

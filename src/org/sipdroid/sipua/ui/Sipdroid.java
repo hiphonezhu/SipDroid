@@ -85,6 +85,7 @@ public class Sipdroid extends Activity implements OnDismissListener {
 	public void onStart() {
 		super.onStart();
 		Receiver.engine(this).registerMore();
+		// 通话记录
 	    ContentResolver content = getContentResolver();
 	    Cursor cursor = content.query(Calls.CONTENT_URI,
 	            PROJECTION, Calls.NUMBER+" like ?", new String[] { "%@%" }, Calls.DEFAULT_SORT_ORDER);
@@ -223,6 +224,7 @@ public class Sipdroid extends Activity implements OnDismissListener {
 		});
 		on(this,true);
 
+		// 拨打电话
 		Button contactsButton = (Button) findViewById(R.id.contacts_button);
 		contactsButton.setOnClickListener(new Button.OnClickListener() {
 			public void onClick(View v) {
@@ -233,6 +235,7 @@ public class Sipdroid extends Activity implements OnDismissListener {
 
 		final Context mContext = this;
 
+		// 设置界面
 		Button settingsButton = (Button) findViewById(R.id.settings_button);
 		settingsButton.setOnClickListener(new Button.OnClickListener() {
 			public void onClick(View v) {
@@ -332,6 +335,7 @@ public class Sipdroid extends Activity implements OnDismissListener {
 	@Override
 	public void onResume() {
 		super.onResume();
+		// 非空闲状态, 有会话在进行, 打开InCallScreen界面
 		if (Receiver.call_state != UserAgent.UA_STATE_IDLE) Receiver.moveTop();
 		String text;
 		text = Integer.parseInt(Build.VERSION.SDK) >= 5?CreateAccount.isPossible(this):null;

@@ -122,6 +122,7 @@ import org.zoolu.sip.provider.SipProvider;
 		public static String MWI_account;
 		private static String laststate,lastnumber;	
 		
+		// 启动SipdroidEngine引擎以及RegisterService服务
 		public static synchronized SipdroidEngine engine(Context context) {
 			if (mContext == null || !context.getClass().getName().contains("ReceiverRestrictedContext"))
 				mContext = context;
@@ -131,7 +132,7 @@ import org.zoolu.sip.provider.SipProvider;
 				}
 				mSipdroidEngine = new SipdroidEngine();
 				mSipdroidEngine.StartEngine();
-				if (Integer.parseInt(Build.VERSION.SDK) >= 8)
+				if (Integer.parseInt(Build.VERSION.SDK) >= 8) // sdk 8以上使用蓝牙
 					Bluetooth.init();
 			} else
 				mSipdroidEngine.CheckEngine();

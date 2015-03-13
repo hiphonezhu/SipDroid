@@ -27,7 +27,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.preference.PreferenceManager;
 import android.util.Log;
-
+/**
+ * 检测SIP账户设置, WIFI/3G/EDGE/VPD四个都不允许则停止RegisterService, 取消广播Receiver
+ * @author hiphonezhu@gmail.com
+ * @version [SipDroid, 2015-3-13]
+ */
 public class OneShotAlarm2 extends BroadcastReceiver {
 
     @Override

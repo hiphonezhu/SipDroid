@@ -46,7 +46,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
-
+/**
+ * 设置界面
+ * @author hiphonezhu@gmail.com
+ * @version [SipDroid, 2015-3-13]
+ */
 public class Settings extends PreferenceActivity implements OnSharedPreferenceChangeListener, OnClickListener {
 	// Current settings handler
 	private static SharedPreferences settings;

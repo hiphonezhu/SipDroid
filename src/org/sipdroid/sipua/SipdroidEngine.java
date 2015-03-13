@@ -47,7 +47,7 @@ import android.preference.PreferenceManager;
 
 public class SipdroidEngine implements RegisterAgentListener {
 
-	public static final int LINES = 2;
+	public static final int LINES = 2; // 允许绑定两个账号
 	public int pref;
 	
 	public static final int UNINITIALIZED = 0x0;
@@ -63,7 +63,7 @@ public class SipdroidEngine implements RegisterAgentListener {
 	private KeepAliveSip[] kas;
 	
 	/** UserAgentProfile */
-	public UserAgentProfile[] user_profiles;
+	public UserAgentProfile[] user_profiles; // UA信息
 
 	public SipProvider[] sip_providers;
 	
@@ -97,6 +97,7 @@ public class SipdroidEngine implements RegisterAgentListener {
 		return user_profile;
 	}
 
+	// 启动引擎
 	public boolean StartEngine() {
 			PowerManager pm = (PowerManager) getUIContext().getSystemService(Context.POWER_SERVICE);
 			WifiManager wm = (WifiManager) getUIContext().getSystemService(Context.WIFI_SERVICE);
@@ -118,11 +119,13 @@ public class SipdroidEngine implements RegisterAgentListener {
 			kas = new KeepAliveSip[LINES];
 			lastmsgs = new String[LINES];
 			sip_providers = new SipProvider[LINES];
+			// 获取本地保存的用户信息
 			user_profiles = new UserAgentProfile[LINES];
 			user_profiles[0] = getUserAgentProfile("");
 			for (int i = 1; i < LINES; i++)
 				user_profiles[1] = getUserAgentProfile(""+i);
 			
+			// 从文件初始化SIP协议栈
 			SipStack.init(null);
 			int i = 0;
 			
@@ -151,6 +154,7 @@ public class SipdroidEngine implements RegisterAgentListener {
 					SipStack.server_info = version;
 						
 					IpAddress.setLocalIpAddress();
+					// SIP传输层, 发送和接收SIP消息
 					sip_providers[i] = new SipProvider(IpAddress.localIpAddress, 0);
 					user_profile.contact_url = getContactURL(user_profile.username,sip_providers[i]);
 					
@@ -178,7 +182,9 @@ public class SipdroidEngine implements RegisterAgentListener {
 				}
 				i++;
 			}
+			// UA注册到SIP服务器
 			register();
+			// 对UA进行监听
 			listen();
 
 			return true;
@@ -263,6 +269,7 @@ public class SipdroidEngine implements RegisterAgentListener {
 	}
 	
 	public void registerMore() {
+	    // 设置本地IP地址
 		IpAddress.setLocalIpAddress();
 		int i = 0;
 		for (RegisterAgent ra : ras) {

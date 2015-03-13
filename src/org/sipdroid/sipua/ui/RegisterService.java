@@ -46,6 +46,10 @@ public class RegisterService extends Service {
     public void onCreate() {
     	super.onCreate();
     	if (Receiver.mContext == null) Receiver.mContext = this;
+    	/**
+    	 * 注册Receiver接受广播（系统完成启动广播、网络连接的变化广播、Vpn 连接变化广播、数据状态改变广播、电话状态改变广播、
+    	 * 亮度传感器广播、蓝牙SCO音频连接状态已改变广播、有线耳机插入或拔出广播、手机屏幕锁屏和解锁广播、用户被唤醒触发广播、wiif状态改变广播）
+    	 */
         if (m_receiver == null) {
 			 IntentFilter intentfilter = new IntentFilter();
 			 intentfilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);

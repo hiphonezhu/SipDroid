@@ -84,6 +84,7 @@ import java.util.Date;
  * <p>
  * Note: no 482 (Loop Detected) responses are generated for requests that does
  * not properly match any ongoing transactions, dialogs, nor method types.
+ * 实现SIP传输层，是发送和接收SIP消息层
  */
 public class SipProvider implements Configurable, TransportListener,
 		TcpServerListener {
